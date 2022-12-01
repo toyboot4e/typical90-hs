@@ -1,2 +1,271 @@
 cradle:
   stack:
+    - path: "./a001/Main.hs"
+      component: "typical90-hs:exe:a001-exe"
+
+    - path: "./a002/Main.hs"
+      component: "typical90-hs:exe:a002-exe"
+
+    - path: "./a003/Main.hs"
+      component: "typical90-hs:exe:a003-exe"
+
+    - path: "./a004/Main.hs"
+      component: "typical90-hs:exe:a004-exe"
+
+    - path: "./a005/Main.hs"
+      component: "typical90-hs:exe:a005-exe"
+
+    - path: "./a006/Main.hs"
+      component: "typical90-hs:exe:a006-exe"
+
+    - path: "./a007/Main.hs"
+      component: "typical90-hs:exe:a007-exe"
+
+    - path: "./a008/Main.hs"
+      component: "typical90-hs:exe:a008-exe"
+
+    - path: "./a009/Main.hs"
+      component: "typical90-hs:exe:a009-exe"
+
+    - path: "./a010/Main.hs"
+      component: "typical90-hs:exe:a010-exe"
+
+    - path: "./a011/Main.hs"
+      component: "typical90-hs:exe:a011-exe"
+
+    - path: "./a012/Main.hs"
+      component: "typical90-hs:exe:a012-exe"
+
+    - path: "./a013/Main.hs"
+      component: "typical90-hs:exe:a013-exe"
+
+    - path: "./a014/Main.hs"
+      component: "typical90-hs:exe:a014-exe"
+
+    - path: "./a015/Main.hs"
+      component: "typical90-hs:exe:a015-exe"
+
+    - path: "./a016/Main.hs"
+      component: "typical90-hs:exe:a016-exe"
+
+    - path: "./a017/Main.hs"
+      component: "typical90-hs:exe:a017-exe"
+
+    - path: "./a018/Main.hs"
+      component: "typical90-hs:exe:a018-exe"
+
+    - path: "./a019/Main.hs"
+      component: "typical90-hs:exe:a019-exe"
+
+    - path: "./a020/Main.hs"
+      component: "typical90-hs:exe:a020-exe"
+
+    - path: "./a021/Main.hs"
+      component: "typical90-hs:exe:a021-exe"
+
+    - path: "./a022/Main.hs"
+      component: "typical90-hs:exe:a022-exe"
+
+    - path: "./a023/Main.hs"
+      component: "typical90-hs:exe:a023-exe"
+
+    - path: "./a024/Main.hs"
+      component: "typical90-hs:exe:a024-exe"
+
+    - path: "./a025/Main.hs"
+      component: "typical90-hs:exe:a025-exe"
+
+    - path: "./a026/Main.hs"
+      component: "typical90-hs:exe:a026-exe"
+
+    - path: "./a027/Main.hs"
+      component: "typical90-hs:exe:a027-exe"
+
+    - path: "./a028/Main.hs"
+      component: "typical90-hs:exe:a028-exe"
+
+    - path: "./a029/Main.hs"
+      component: "typical90-hs:exe:a029-exe"
+
+    - path: "./a030/Main.hs"
+      component: "typical90-hs:exe:a030-exe"
+
+    - path: "./a031/Main.hs"
+      component: "typical90-hs:exe:a031-exe"
+
+    - path: "./a032/Main.hs"
+      component: "typical90-hs:exe:a032-exe"
+
+    - path: "./a033/Main.hs"
+      component: "typical90-hs:exe:a033-exe"
+
+    - path: "./a034/Main.hs"
+      component: "typical90-hs:exe:a034-exe"
+
+    - path: "./a035/Main.hs"
+      component: "typical90-hs:exe:a035-exe"
+
+    - path: "./a036/Main.hs"
+      component: "typical90-hs:exe:a036-exe"
+
+    - path: "./a037/Main.hs"
+      component: "typical90-hs:exe:a037-exe"
+
+    - path: "./a038/Main.hs"
+      component: "typical90-hs:exe:a038-exe"
+
+    - path: "./a039/Main.hs"
+      component: "typical90-hs:exe:a039-exe"
+
+    - path: "./a040/Main.hs"
+      component: "typical90-hs:exe:a040-exe"
+
+    - path: "./a041/Main.hs"
+      component: "typical90-hs:exe:a041-exe"
+
+    - path: "./a042/Main.hs"
+      component: "typical90-hs:exe:a042-exe"
+
+    - path: "./a043/Main.hs"
+      component: "typical90-hs:exe:a043-exe"
+
+    - path: "./a044/Main.hs"
+      component: "typical90-hs:exe:a044-exe"
+
+    - path: "./a045/Main.hs"
+      component: "typical90-hs:exe:a045-exe"
+
+    - path: "./a046/Main.hs"
+      component: "typical90-hs:exe:a046-exe"
+
+    - path: "./a047/Main.hs"
+      component: "typical90-hs:exe:a047-exe"
+
+    - path: "./a048/Main.hs"
+      component: "typical90-hs:exe:a048-exe"
+
+    - path: "./a049/Main.hs"
+      component: "typical90-hs:exe:a049-exe"
+
+    - path: "./a050/Main.hs"
+      component: "typical90-hs:exe:a050-exe"
+
+    - path: "./a051/Main.hs"
+      component: "typical90-hs:exe:a051-exe"
+
+    - path: "./a052/Main.hs"
+      component: "typical90-hs:exe:a052-exe"
+
+    - path: "./a053/Main.hs"
+      component: "typical90-hs:exe:a053-exe"
+
+    - path: "./a054/Main.hs"
+      component: "typical90-hs:exe:a054-exe"
+
+    - path: "./a055/Main.hs"
+      component: "typical90-hs:exe:a055-exe"
+
+    - path: "./a056/Main.hs"
+      component: "typical90-hs:exe:a056-exe"
+
+    - path: "./a057/Main.hs"
+      component: "typical90-hs:exe:a057-exe"
+
+    - path: "./a058/Main.hs"
+      component: "typical90-hs:exe:a058-exe"
+
+    - path: "./a059/Main.hs"
+      component: "typical90-hs:exe:a059-exe"
+
+    - path: "./a060/Main.hs"
+      component: "typical90-hs:exe:a060-exe"
+
+    - path: "./a061/Main.hs"
+      component: "typical90-hs:exe:a061-exe"
+
+    - path: "./a062/Main.hs"
+      component: "typical90-hs:exe:a062-exe"
+
+    - path: "./a063/Main.hs"
+      component: "typical90-hs:exe:a063-exe"
+
+    - path: "./a064/Main.hs"
+      component: "typical90-hs:exe:a064-exe"
+
+    - path: "./a065/Main.hs"
+      component: "typical90-hs:exe:a065-exe"
+
+    - path: "./a066/Main.hs"
+      component: "typical90-hs:exe:a066-exe"
+
+    - path: "./a067/Main.hs"
+      component: "typical90-hs:exe:a067-exe"
+
+    - path: "./a068/Main.hs"
+      component: "typical90-hs:exe:a068-exe"
+
+    - path: "./a069/Main.hs"
+      component: "typical90-hs:exe:a069-exe"
+
+    - path: "./a070/Main.hs"
+      component: "typical90-hs:exe:a070-exe"
+
+    - path: "./a071/Main.hs"
+      component: "typical90-hs:exe:a071-exe"
+
+    - path: "./a072/Main.hs"
+      component: "typical90-hs:exe:a072-exe"
+
+    - path: "./a073/Main.hs"
+      component: "typical90-hs:exe:a073-exe"
+
+    - path: "./a074/Main.hs"
+      component: "typical90-hs:exe:a074-exe"
+
+    - path: "./a075/Main.hs"
+      component: "typical90-hs:exe:a075-exe"
+
+    - path: "./a076/Main.hs"
+      component: "typical90-hs:exe:a076-exe"
+
+    - path: "./a077/Main.hs"
+      component: "typical90-hs:exe:a077-exe"
+
+    - path: "./a078/Main.hs"
+      component: "typical90-hs:exe:a078-exe"
+
+    - path: "./a079/Main.hs"
+      component: "typical90-hs:exe:a079-exe"
+
+    - path: "./a080/Main.hs"
+      component: "typical90-hs:exe:a080-exe"
+
+    - path: "./a081/Main.hs"
+      component: "typical90-hs:exe:a081-exe"
+
+    - path: "./a082/Main.hs"
+      component: "typical90-hs:exe:a082-exe"
+
+    - path: "./a083/Main.hs"
+      component: "typical90-hs:exe:a083-exe"
+
+    - path: "./a084/Main.hs"
+      component: "typical90-hs:exe:a084-exe"
+
+    - path: "./a085/Main.hs"
+      component: "typical90-hs:exe:a085-exe"
+
+    - path: "./a086/Main.hs"
+      component: "typical90-hs:exe:a086-exe"
+
+    - path: "./a087/Main.hs"
+      component: "typical90-hs:exe:a087-exe"
+
+    - path: "./a088/Main.hs"
+      component: "typical90-hs:exe:a088-exe"
+
+    - path: "./a089/Main.hs"
+      component: "typical90-hs:exe:a089-exe"
+
+    - path: "./a090/Main.hs"
+      component: "typical90-hs:exe:a090-exe"
