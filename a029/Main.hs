@@ -24,6 +24,15 @@
   - refactor `primes` with new Prelude
 -}
 
+{- TODO: Refactor with the typeclass-based semigroup action:
+- [ ] Write `haddock` and run tests.
+- [ ] LCA
+- [ ] ModInt
+- [ ] `invModF` -> `invModBL`
+- [ ] DP withrerooting
+- [ ] lazy segment tree
+-}
+
 -- {{{ Imports
 
 module Main (main) where
@@ -47,6 +56,7 @@ import Data.Maybe
 import Data.Ord
 import Data.Proxy
 import Data.STRef
+import Data.Semigroup
 import Data.Word
 import Debug.Trace
 import GHC.Exts
@@ -202,10 +212,26 @@ vLength = VFB.length . VG.stream
 rangeVG :: (VG.Vector v Int) => Int -> Int -> v Int
 rangeVG !i !j = VG.enumFromN i (succ j - i)
 
+{-# INLINE rangeV #-}
+rangeV :: Int -> Int -> V.Vector Int
+rangeV = rangeVG
+
+{-# INLINE rangeVU #-}
+rangeVU :: Int -> Int -> VU.Vector Int
+rangeVU = rangeVG
+
 -- | `rangeVG` in reverse.
 {-# INLINE rangeVGR #-}
 rangeVGR :: (VG.Vector v Int) => Int -> Int -> v Int
 rangeVGR !i !j = VG.enumFromStepN i (-1) (succ j - i)
+
+{-# INLINE rangeVR #-}
+rangeVR :: Int -> Int -> V.Vector Int
+rangeVR = rangeVGR
+
+{-# INLINE rangeVUR #-}
+rangeVUR :: Int -> Int -> VU.Vector Int
+rangeVUR = rangeVGR
 
 -- | @cojna (`stream`)
 {-# INLINE [1] rangeMS #-}
@@ -623,60 +649,96 @@ primeFactors !n_ = map (\ !xs -> (head xs, length xs)) . group $ inner n_ input
 
 -- }}}
 
--- {{{ WIP: monoid-based binary lifting system
+-- {{{ Binary lifting data structure
 
--- TODO: `invModF` -> `invModD` (doubling)
-
--- | OperatorMonoid mapp mact
+-- | Binary lifting is a technique for calculating nth power of a monoid in a (big) constant time.
 -- |
--- | a `mact` m1 `mact` m2 = a `mact` (m1 `mapp` m2)
--- |
--- | Such a monoid is called an operator monoid.
--- | Doulbing, DP with rerooting and lazy segment tree make use of them. I guess.
-data OperatorMonoid m a = OperatorMonoid m (m -> m -> m) (a -> m -> a)
+-- | The i-th element of the underlying vector of `BinaryLifting` stores `m^{2^i}`, with which we
+-- | can construct any of `m^i` (`0 <= i < 2^63`).
+newtype BinaryLifting v m = BinaryLifting (v m)
+  deriving (Show, Eq)
 
-data BinaryLifting m a v = BinaryLifting (OperatorMonoid m a) (v m)
-
--- TODO: Test the opereator monoid doulbing template and remove raw functions:
-binLift :: (VG.Vector v m, VG.Vector v Int) => OperatorMonoid m a -> BinaryLifting m a v
-binLift opMonoid@(OperatorMonoid !op0 !mapp !_) = BinaryLifting opMonoid ops
+-- | Calculates `BinaryLifting` of the given semigroup
+newBinLift :: (VG.Vector v s, Semigroup s) => s -> BinaryLifting v s
+newBinLift !op0 = BinaryLifting ops
   where
-    step !op !_ = op `mapp` op
-    !ops = VG.scanl' step op0 $ VG.enumFromN (0 :: Int) 62
+    !ops = VG.iterateN (pred 63) (\op -> op <> op) op0
 
-binLiftReplacement :: VU.Vector Int -> BinaryLifting (VU.Vector Int) Int V.Vector
-binLiftReplacement !op0 =
-  binLift $ OperatorMonoid op0 (\op1 op2 -> VU.map (op2 VU.!) op1) (flip (VU.!))
+-- | Calculates `BinaryLifting` of the given semigroup
+newBinLiftV :: Semigroup s => s -> BinaryLifting V.Vector s
+newBinLiftV = newBinLift
 
--- | Binarily lifted operator monoid action application.
-mactB :: (VG.Vector v m) => (BinaryLifting m a v) -> a -> Int -> a
-mactB (BinaryLifting (OperatorMonoid !_ !_ !mact) !ops) !acc0 !nAct = VU.foldl' step acc0 (rangeVG 0 62)
+-- | Calculates `BinaryLifting` of the given semigroup
+newBinLiftVU :: (Semigroup s, VU.Unbox s) => s -> BinaryLifting VU.Vector s
+newBinLiftVU = newBinLift
+
+-- | Binarily lifted version of `stimesMonoid`.
+-- | NOTE: Usually `sactBN` is much cheaper for semigroup actions with boxed type.
+mtimesBN :: (Monoid m, VG.Vector v m) => (BinaryLifting v m) -> Int -> m
+mtimesBN (BinaryLifting !ops) !n = VU.foldl' step mempty (VU.enumFromN 0 62)
+  where
+    step !m !i = m <> ops VG.! i
+
+-- }}}
+
+-- {{{ Semigroup action and binary lifting
+
+-- | Right semigroup aciton.
+-- |
+-- | s2 `sact` (s1 `sact` a) == (s2 <> s1) `sact` a
+class SemigroupAction s a where
+  -- | Right semigroup aciton
+  sact :: s -> a -> a
+
+-- | Binarily lifted semigroup action application.
+sactBL :: (SemigroupAction s a, VG.Vector v s) => (BinaryLifting v s) -> a -> Int -> a
+sactBL (BinaryLifting !ops) !acc0 !nAct = VU.foldl' step acc0 (rangeVG 0 62)
   where
     step !acc !nBit
-      | testBit nAct nBit = acc `mact` (ops VG.! nBit)
+      | testBit nAct nBit = (ops VG.! nBit) `sact` acc
       | otherwise = acc
+
+-- | Right monoid action.
+-- |
+-- | m2 `mact` (m1 `mact` a) == (m2 <> m1) `mact` a
+class (SemigroupAction m a, Monoid m) => MonoidAction m a where
+  -- | Right monoid aciton
+  mact :: m -> a -> a
+  mact = sact
+
+-- | Alias of `sactBL` for monoid action.
+mactBL :: (MonoidAction m a, VG.Vector v m) => (BinaryLifting v m) -> a -> Int -> a
+mactBL = sactBL
+
+newtype Replacement = Replacement (VU.Vector Int)
+  deriving (Show, Eq)
+
+instance Semigroup Replacement where
+  (Replacement vec1) <> (Replacement vec2) = Replacement $ VU.map (vec1 VU.!) vec2
+    where
+      !_ = dbgAssert (VG.length vec1 == VG.length vec2)
 
 -- }}}
 
 -- {{{ Doubling
 
--- | Extends an operator to be able to be applied multiple times in a constant time (N < 2^63).
+-- | Extends an operator monoid to be able to be applied multiple times in a constant time (N < 2^62).
 newDoubling :: (VG.Vector v a, VG.Vector v Int) => a -> (a -> a) -> v a
-newDoubling !oper0 !squareCompositeF = VG.scanl' step oper0 $ VG.enumFromN (0 :: Int) 62
+newDoubling !oper0 !squareCompositeF = VG.scanl' step oper0 $ VG.enumFromN (1 :: Int) 62
   where
     step !oper !_ = squareCompositeF oper
 
 newDoublingV :: a -> (a -> a) -> V.Vector a
 newDoublingV = newDoubling
 
--- | Applies an operator `n` times using an applying function `applyF`.
-applyDoubling :: (VG.Vector v a) => v a -> b -> (b -> a -> b) -> Int -> b
-applyDoubling !opers !x0 !applyF !n = foldl' step x0 [0 .. 62]
+-- | Applies an operator `n` times using the action function.
+applyDoubling :: (VG.Vector v op) => v op -> a -> (a -> op -> a) -> Int -> a
+applyDoubling !opers !x0 !act !n = foldl' step x0 [0 .. 62]
   where
     !_ = dbgAssert $ VG.length opers == 63
     step !acc !nBit =
       if testBit n nBit
-        then applyF acc (opers VG.! nBit)
+        then acc `act` (opers VG.! nBit)
         else acc
 
 -- }}}
@@ -932,23 +994,51 @@ dequeueMaybe _ = Nothing
 
 -- }}}
 
--- {{{ ismo 2D
+-- {{{ imos 2D
 
-ismo2D :: ((Int, Int), (Int, Int)) -> UArray (Int, Int) Int -> UArray (Int, Int) Int
-ismo2D !bounds_ !seeds = runSTUArray $ do
+--  WARNING: Can you really allocate/run O(HW) algorithm?
+imos2D :: ((Int, Int), (Int, Int)) -> UArray (Int, Int) Int -> UArray (Int, Int) Int
+imos2D !bounds_ !seeds = runSTUArray $ do
   arr <- newArray bounds_ (0 :: Int)
+
+  let (!minY, !minX) = fst bounds_
 
   -- row scan
   forM_ (range bounds_) $ \(!y, !x) -> do
-    !v <- if x == 0 then return 0 else readArray arr (y, x - 1)
+    !v <- if x == minX then return 0 else readArray arr (y, x - 1)
     let !diff = seeds ! (y, x)
     writeArray arr (y, x) (v + diff)
 
   -- column scan
   forM_ (range bounds_) $ \(!x, !y) -> do
-    !v <- if y == 0 then return 0 else readArray arr (y - 1, x)
+    !v <- if y == minY then return 0 else readArray arr (y - 1, x)
     !diff <- readArray arr (y, x)
     writeArray arr (y, x) (v + diff)
+
+  return arr
+
+--  WARNING: Can you really allocate/run O(HW) algorithm?
+imos2DRev :: ((Int, Int), (Int, Int)) -> UArray (Int, Int) Int -> UArray (Int, Int) Int
+imos2DRev !bounds_ !seeds = runSTUArray $ do
+  arr <- newArray bounds_ (0 :: Int)
+
+  let (!minY, !minX) = fst bounds_
+  let (!maxY, !maxX) = snd bounds_
+
+  -- row scan
+  -- forM_ (reverse $ range bounds_) $ \(!y, !x) -> do
+  forMS_ (rangeMSR minX maxX) $ \x -> do
+    forMS_ (rangeMSR minY maxY) $ \y -> do
+      !v <- if x == maxX then return 0 else readArray arr (y, x + 1)
+      let !diff = seeds ! (y, x)
+      writeArray arr (y, x) (v + diff)
+
+  -- column scan
+  forMS_ (rangeMSR minX maxX) $ \x -> do
+    forMS_ (rangeMSR minY maxY) $ \y -> do
+      !v <- if y == maxY then return 0 else readArray arr (y + 1, x)
+      !diff <- readArray arr (y, x)
+      writeArray arr (y, x) (v + diff)
 
   return arr
 
@@ -1125,7 +1215,7 @@ sameMUF !uf !x !y = liftM2 (==) (rootMUF uf x) (rootMUF uf y)
 -- | Just an internal helper.
 _unwrapMUFRoot :: MUFNode -> Int
 _unwrapMUFRoot (MUFRoot !s) = s
-_unwrapMUFRoot (MUFChild !_) = undefined
+_unwrapMUFRoot (MUFChild !_) = error "tried to unwrap child as UF root"
 
 -- | Unites two nodes.
 {-# INLINE uniteMUF #-}
@@ -1183,6 +1273,7 @@ uniteSUF !uf !i !j
 -- {{{ Segment tree
 
 -- TODO: refactor
+-- TODO: use one-based indices internally?
 
 -- | A mutable segment tree backed by a complete binary tree.
 -- |
@@ -1213,7 +1304,7 @@ uniteSUF !uf !i !j
 -- |   3     4     5     6
 -- | 07 08 09 10 11 12 13 14
 -- | ```
-data MSegmentTree v s a = MSegmentTree (a -> a -> a) (v s a)
+data SegmentTree v s a = SegmentTree (a -> a -> a) (v s a)
 
 -- TODO: Can I UNPACK? the funciton?
 -- TODO: Possibly a show instance?
@@ -1222,8 +1313,8 @@ data MSegmentTree v s a = MSegmentTree (a -> a -> a) (v s a)
 -- | REMARK: Always give a zero value. It fills all the nodes including parent nodes, and the parent
 -- | nodes are not updated.
 {-# INLINE newSTreeVG #-}
-newSTreeVG :: (VGM.MVector v a, PrimMonad m) => (a -> a -> a) -> Int -> a -> m (MSegmentTree v (PrimState m) a)
-newSTreeVG !f !n !value = MSegmentTree f <$!> VGM.replicate n' value
+newSTreeVG :: (VGM.MVector v a, PrimMonad m) => (a -> a -> a) -> Int -> a -> m (SegmentTree v (PrimState m) a)
+newSTreeVG !f !n !value = SegmentTree f <$!> VGM.replicate n' value
   where
     -- TODO: try this:
     -- !n' = until (>= n) (* 2) 2
@@ -1231,12 +1322,12 @@ newSTreeVG !f !n !value = MSegmentTree f <$!> VGM.replicate n' value
 
 -- | Creates a boxed segment tree.
 {-# INLINE newSTreeV #-}
-newSTreeV :: PrimMonad m => (a -> a -> a) -> Int -> a -> m (MSegmentTree VM.MVector (PrimState m) a)
+newSTreeV :: PrimMonad m => (a -> a -> a) -> Int -> a -> m (SegmentTree VM.MVector (PrimState m) a)
 newSTreeV = newSTreeVG
 
 -- | Creates an unboxed segment tree.
 {-# INLINE newSTreeVU #-}
-newSTreeVU :: (VU.Unbox a, PrimMonad m) => (a -> a -> a) -> Int -> a -> m (MSegmentTree VUM.MVector (PrimState m) a)
+newSTreeVU :: (VU.Unbox a, PrimMonad m) => (a -> a -> a) -> Int -> a -> m (SegmentTree VUM.MVector (PrimState m) a)
 newSTreeVU = newSTreeVG
 
 -- | Sets all the internal values of a segment tree to the given value which has to be zero.
@@ -1244,23 +1335,23 @@ newSTreeVU = newSTreeVG
 -- | REMARK: It takes lots of time. Consider a much more efficient resettiong strategy such as
 -- | re-inserting zeros to used slots, or maybe use | `compressInvNumVG` when you just need
 -- | inversion number.
-resetSTree :: (VGM.MVector v a, PrimMonad m) => (MSegmentTree v (PrimState m) a) -> a -> m ()
-resetSTree (MSegmentTree !_ !vec) !zero = VGM.set vec zero
+resetSTree :: (VGM.MVector v a, PrimMonad m) => (SegmentTree v (PrimState m) a) -> a -> m ()
+resetSTree (SegmentTree !_ !vec) !zero = VGM.set vec zero
 
--- | Updates an `MSegmentTree` leaf value and their parents up to top root.
+-- | Updates an `SegmentTree` leaf value and their parents up to top root.
 {-# INLINE insertSTree #-}
-insertSTree :: (VGM.MVector v a, PrimMonad m) => MSegmentTree v (PrimState m) a -> Int -> a -> m ()
-insertSTree tree@(MSegmentTree !_ !vec) !i !value = _updateElement tree i' value
+insertSTree :: (VGM.MVector v a, PrimMonad m) => SegmentTree v (PrimState m) a -> Int -> a -> m ()
+insertSTree tree@(SegmentTree !_ !vec) !i !value = _updateElement tree i' value
   where
     -- length == 2 * (the number of the leaves)
     !offset = VGM.length vec `div` 2 - 1
     -- leaf index
     !i' = i + offset
 
--- | Updates an `MSegmentTree` leaf value and their parents up to top root.
+-- | Updates an `SegmentTree` leaf value and their parents up to top root.
 {-# INLINE modifySTree #-}
-modifySTree :: (VGM.MVector v a, PrimMonad m) => MSegmentTree v (PrimState m) a -> (a -> a) -> Int -> m ()
-modifySTree tree@(MSegmentTree !_ !vec) !f !i = do
+modifySTree :: (VGM.MVector v a, PrimMonad m) => SegmentTree v (PrimState m) a -> (a -> a) -> Int -> m ()
+modifySTree tree@(SegmentTree !_ !vec) !f !i = do
   !v <- f <$> VGM.unsafeRead vec i'
   _updateElement tree i' v
   where
@@ -1269,12 +1360,12 @@ modifySTree tree@(MSegmentTree !_ !vec) !f !i = do
     -- leaf index
     !i' = i + offset
 
--- | (Internal) Updates an `MSegmentTree` element (node or leaf) value and their parents up to top root.
+-- | (Internal) Updates an `SegmentTree` element (node or leaf) value and their parents up to top root.
 -- REMARK: It's faster to not INLINE the recursive function:
-_updateElement :: (VGM.MVector v a, PrimMonad m) => MSegmentTree v (PrimState m) a -> Int -> a -> m ()
-_updateElement (MSegmentTree !_ !vec) 0 !value = do
+_updateElement :: (VGM.MVector v a, PrimMonad m) => SegmentTree v (PrimState m) a -> Int -> a -> m ()
+_updateElement (SegmentTree !_ !vec) 0 !value = do
   VGM.unsafeWrite vec 0 value
-_updateElement tree@(MSegmentTree !f !vec) !i !value = do
+_updateElement tree@(SegmentTree !f !vec) !i !value = do
   VGM.unsafeWrite vec i value
   case ((i - 1) `div` 2) of
     -- REMARK: (-1) `div` 2 == -1
@@ -1285,10 +1376,10 @@ _updateElement tree@(MSegmentTree !f !vec) !i !value = do
       !c2 <- VGM.unsafeRead vec (iParent * 2 + 2)
       _updateElement tree iParent (f c1 c2)
 
--- | Retrieves the folding result over the inclusive range `[l, r]` from `MSegmentTree`.
+-- | Retrieves the folding result over the inclusive range `[l, r]` from `SegmentTree`.
 {-# INLINE querySTree #-}
-querySTree :: forall v a m. (VGM.MVector v a, PrimMonad m) => MSegmentTree v (PrimState m) a -> (Int, Int) -> m (Maybe a)
-querySTree (MSegmentTree !f !vec) (!lo, !hi)
+querySTree :: forall v a m. (VGM.MVector v a, PrimMonad m) => SegmentTree v (PrimState m) a -> (Int, Int) -> m (Maybe a)
+querySTree (SegmentTree !f !vec) (!lo, !hi)
   | lo > hi = return Nothing
   | otherwise = inner 0 (0, initialHi)
   where
@@ -1414,8 +1505,11 @@ dictOrderModuloVec xs modulus = runST $ do
 -- | Adjacency list representation of a graph with cost type parameter `a`.
 type Graph a = Array Int [a]
 
+-- TODO: Use `Vertex` aggressively
+type Vertex = Int
+
 -- | Weighted `Graph` (Entry priority payload).
-type WGraph a = Array Int [H.Entry a Int]
+type WGraph a = Array Int [H.Entry a Vertex]
 
 dfsEveryVertex :: forall s. (s -> Bool, s -> Int -> s, s -> Int -> s) -> Graph Int -> Int -> s -> (s, IS.IntSet)
 dfsEveryVertex (!isEnd, !fin, !fout) !graph !start !s0 = visitNode (s0, IS.empty) start
@@ -1586,6 +1680,7 @@ revGraph graph = accumArray (flip (:)) [] (bounds graph) input
     input = foldl' (\ !acc (!v2, !v1s) -> foldl' (\ !acc' !v1 -> (v1, v2) : acc') acc v1s) [] $ assocs graph
 
 -- | Collectes strongly connected components, topologically sorted.
+-- | e.g. (v1 <-> v2) -> v3 -> v4
 topScc :: Array Int [Int] -> [[Int]]
 topScc graph = collectSccPreorder $ topSort graph
   where
@@ -1604,6 +1699,10 @@ topSccCycles graph = filter f $ topScc graph
     -- self-referencial loop only
     f [!v] = [v] == graph ! v
     f !_ = True
+
+-- | e.g. v4 <- v3 <- (v2 <-> v1)
+downScc :: Array Int [Int] -> [[Int]]
+downScc = reverse . map reverse . topScc
 
 -- }}}
 
@@ -1802,74 +1901,155 @@ djVec !graph !start !undef = VU.create $ do
 
 -- }}}
 
--- {{{ Tree
+-- {{{ LCA (basic)
+
+-- | Vector for retrieving the parent vertex.
+newtype ToParent = ToParent (VU.Vector Vertex)
+
+instance Semigroup ToParent where
+  (ToParent !vec1) <> (ToParent !vec2) = ToParent $ VU.map f vec2
+    where
+      !_ = dbgAssert (VG.length vec1 == VG.length vec2)
+      f (-1) = (-1)
+      f i = vec1 VU.! i
+
+instance SemigroupAction ToParent Vertex where
+  sact (ToParent !vec) !i = vec VU.! i
+
+-- `(parents, depths, parents')`
+type LcaCache = (ToParent, VU.Vector Int, BinaryLifting V.Vector ToParent)
 
 -- Returns `(parents, depths)` who maps vertices to the corresponding information.
 -- REMARK: Use 0-based index for the graph vertices.
-treeDepthInfo :: Graph Int -> Int -> (VU.Vector Int, VU.Vector Int)
-treeDepthInfo !graph !root = runST $ do
+-- TODO: Consider using `Maybe Int` instead for easier `Monoid` integration
+treeDepthInfo :: Int -> (Int -> [Int]) -> Int -> (ToParent, VU.Vector Int)
+treeDepthInfo !nVerts !graph !root = runST $ do
   !parents <- VUM.replicate nVerts (-1 :: Int)
   !depths <- VUM.replicate nVerts (-1 :: Int)
 
-  let m (!depth, !parent, !vs) = do
-        forM_ vs $ \v -> do
-          VUM.unsafeWrite depths v depth
-          VUM.unsafeWrite parents v parent
-          let !vs' = filter (/= parent) $ graph ! v
-          m (succ depth, v, vs')
+  flip fix (0 :: Int, -1 :: Int, [root]) $ \loop (!depth, !parent, !vs) -> do
+    forM_ vs $ \v -> do
+      VUM.unsafeWrite depths v depth
+      VUM.unsafeWrite parents v parent
+      let !vs' = filter (/= parent) $ graph v
+      loop (succ depth, v, vs')
 
-  !_ <- m (0 :: Int, -1 :: Int, [root])
+  (,) <$> (ToParent <$> VU.unsafeFreeze parents) <*> VU.unsafeFreeze depths
 
-  (,) <$> VU.unsafeFreeze parents <*> VU.unsafeFreeze depths
+-- | Returns `LcaCache`, i.e., `(parents, depths, parents')`.
+lcaCache :: Int -> (Vertex -> [Vertex]) -> Vertex -> LcaCache
+lcaCache !nVerts !graph !root = (toParent, depths, toParentN)
   where
-    !nVerts = rangeSize $ bounds graph
+    (!toParent, !depths) = treeDepthInfo nVerts graph root
+    !toParentN = newBinLift toParent
 
--- | Returns `(parents, depths, doubling)` two of which can be used for `lca`.
-lcaCache :: Graph Int -> Int -> (VU.Vector Int, VU.Vector Int, V.Vector (VU.Vector Int))
-lcaCache graph root = (parents, depths, doubling)
-  where
-    (!parents, !depths) = treeDepthInfo graph root
-    !doubling = newDoubling parents $ \acc -> VU.map (\case -1 -> -1; i -> acc VU.! i) acc
-
--- Returns the lowest common ancestor `(v, d)` with the help of doubling technique.
--- REMARK: Use 0-based index for the graph vertices.
-lca :: VU.Vector Int -> V.Vector (VU.Vector Int) -> Int -> Int -> (Int, Int)
-lca !depths !doubling !v1 !v2 = (vLCA, depths VU.! vLCA)
+-- | Returns the lowest common ancestor `(v, d)` with the help of the binary lifting technique.
+-- | REMARK: Use 0-based index for the graph vertices.
+lca :: LcaCache -> Int -> Int -> (Int, Int)
+lca (!_, !depths, !toParentN) !v1 !v2 = (vLCA, depths VU.! vLCA)
   where
     -- depths
     !d1 = depths VU.! v1
     !d2 = depths VU.! v2
 
-    -- go up N depths
-    parentN !v !n =
-      applyDoubling
-        doubling
-        v
-        ( \v' mapper -> case v' of
-            (-1) -> -1
-            _ -> mapper VU.! v'
-        )
-        n
+    parentN = sactBL toParentN
 
-    -- v1' and v2' are of the same depth
+    -- v1' and v2' are of the same depth:
     !v1' = if d1 <= d2 then v1 else v2
     !v2' = parentN (if d1 > d2 then v1 else v2) (abs $ d1 - d2)
 
-    -- go up `dLCA` depth to find the lca
+    -- find the depth of the lowest common ancestor:
     !dLCA = fromJust . snd $ bsearch (0, min d1 d2) \d ->
-      let !p1 = parentN v1' d
-          !p2 = parentN v2' d
-       in p1 /= p2
+      parentN v1' d /= parentN v2' d
 
     !vLCA = parentN v1' dLCA
 
 -- | Gets the length between given two vertices with the help of LCA.
-lcaLen :: VU.Vector Int -> V.Vector (VU.Vector Int) -> Int -> Int -> Int
-lcaLen !depths !doubling !v1 !v2 =
-  let (!_, !d) = lca depths doubling v1 v2
+lcaLen :: LcaCache -> Int -> Int -> Int
+lcaLen cache@(!_, !depths, !_) !v1 !v2 =
+  let (!_, !d) = lca cache v1 v2
       !d1 = depths VU.! v1
       !d2 = depths VU.! v2
    in (d1 - d) + (d2 - d)
+
+-- }}}
+
+-- {{{ Tree path folding
+
+-- | `ToParent` with monoid concatanation.
+newtype ToParentM m = ToParentM (Int, VU.Vector m)
+
+-- instance Semigroup
+
+-- REMARK: My implementation is too slow.
+-- FIXME: Stop the manual folding / binary lifting. Idea: monad?
+
+-- | `LcaCache` with monoid folding on path.
+type FoldLcaCache m = (LcaCache, V.Vector (VU.Vector m))
+
+-- | Returns `FoldLcaCache` that can be used for calculating the folding value of path between two
+-- | vertices.
+-- |
+-- | - graph: Vertex -> [Vertex]
+-- | - edgeValueOf: child -> parent -> m
+foldLcaCache :: forall m. (Monoid m, VU.Unbox m) => Int -> (Vertex -> [Vertex]) -> Vertex -> (Vertex -> Vertex -> m) -> FoldLcaCache m
+foldLcaCache !nVerts !graph !root !edgeValueOf = (cache, foldCache)
+  where
+    !cache@(!parents, !_, BinaryLifting !parents') = lcaCache nVerts graph root
+    foldCache :: V.Vector (VU.Vector m)
+    !foldCache = V.map snd $ newDoubling toParent appendArray
+      where
+        -- Monoid value when going up one parent vertex:
+        !toParent = (0, VU.map f (rangeVG 0 (pred nVerts)))
+          where
+            f v = case parents `sact` v of
+              (-1) -> mempty
+              p -> edgeValueOf v p
+
+        -- Folding function for the binary lifting technique:
+        appendArray (!iBit, !ops) = (succ iBit, VU.imap f ops)
+          where
+            f !v0 !op =
+              case ((parents' V.! iBit) `sact` v0) of
+                (-1) -> op
+                p -> op <> (ops VU.! p)
+
+-- | `foldLcaCache` specific for `Array Vertex [(Vertex, a)]`.
+foldLcaCache2 :: forall a m. (Monoid m, VU.Unbox m) => Array Int [(Vertex, a)] -> (a -> m) -> FoldLcaCache m
+foldLcaCache2 !tree !toMonoid = foldLcaCache nVerts adj root getValue
+  where
+    !root = 0 :: Vertex
+    !nVerts = rangeSize $ bounds tree
+    adj = map fst . (tree !)
+    -- FIXME: This is too slow.
+    -- TODO: Do not iterate E^2 times.
+    getValue v p = toMonoid . snd . fromJust . find ((== p) . fst) $ tree ! v
+
+-- | Calculates the folding value of the path between two vertices in a tree.
+foldViaLca :: forall m. (Monoid m, VU.Unbox m) => FoldLcaCache m -> Int -> Int -> m
+foldViaLca (!cache@(!_, !depths, BinaryLifting !parents'), !ops') !v1 !v2 =
+  let (!v, !d) = lca cache v1 v2
+      -- !_ = dbg ((v1, d1), (v2, d2), (v, d), a1, a2, a1 <> a2)
+      !d1 = depths VU.! v1
+      !d2 = depths VU.! v2
+      !a1 = foldParentN v1 (d1 - d)
+      !a2 = foldParentN v2 (d2 - d)
+   in a1 <> a2
+  where
+    -- Folds up the monoid value on going upwards:
+    -- TODO: use `ReplacementWithMonoid` to outsource the folding method
+    foldParentN :: Vertex -> Int -> m
+    foldParentN !v0 !nthParent = snd $ V.foldl' step (v0, mempty) input
+      where
+        !input = V.zip3 (rangeVG 0 62) parents' ops'
+        step :: (Vertex, m) -> (Int, ToParent, VU.Vector m) -> (Vertex, m)
+        step (!v, !acc) (!iBit, !parents, !ops)
+          | testBit nthParent iBit = (parents `sact` v, acc <> (ops VU.! v))
+          | otherwise = (v, acc)
+
+-- }}}
+
+-- {{{ Tree folding from a root node
 
 -- | Folds a tree from one root vertex using postorder DFS.
 foldTree :: Array Int [Int] -> Int -> m -> (m -> m -> m) -> m
@@ -1897,37 +2077,38 @@ scanTreeVG !tree !root !acc0 !mact = VG.create $ do
 scanTreeVU :: VU.Unbox m => Array Int [Int] -> Int -> m -> (m -> m -> m) -> VU.Vector m
 scanTreeVU = scanTreeVG
 
--- | Folds a tree for every vertex as a root using the rerooting technique.
--- | Also known as tree DP with rerooting.
--- Add `Show m` for debug.
-foldTreeAll :: VU.Unbox m => Array Int [Int] -> (OperatorMonoid m m) -> m -> (VU.Vector m)
-foldTreeAll !tree (OperatorMonoid !op0 !mapp !mact) !acc0 =
-  -- Calculate tree DP for one root vertex
-  let !treeDp = scanTreeVG tree root0 acc0 mact
-      !rootDp = VU.create $ do
-        -- Calculate tree DP for every vertex as a root:
-        !dp <- VUM.unsafeNew nVerts
-        flip fix (-1, op0, root0) $ \runRootDp (!parent, !parentOp, !v1) -> do
-          let !children = VU.fromList . filter (/= parent) $ tree ! v1
-          let !opL = VU.scanl' (\op v2 -> (op `mapp`) $ treeDp VU.! v2) op0 children
-          let !opR = VU.scanr (\v2 op -> (op `mapp`) $ treeDp VU.! v2) op0 children
-
-          -- save
-          let !x1 = acc0 `mact` (parentOp `mapp` (VU.last opL))
-          VUM.write dp v1 x1
-          -- let !_ = dbg ("dfs", (parent, parentOp), "->", (v1, x1), children, opR)
-
-          flip VU.imapM_ children $ \ !i2 !v2 -> do
-            let !lrOp = (opL VU.! i2) `mapp` (opR VU.! succ i2)
-            -- REMARK: We assume the accumulated value has information to be used as an operator:
-            let !v1Acc = acc0 `mact` (parentOp `mapp` lrOp)
-            runRootDp (v1, v1Acc, v2)
-
-        return dp
-   in rootDp
-  where
-    !nVerts = rangeSize $ (bounds tree)
-    !root0 = 0 :: Int
+-- TODO: Remake `foldTreeAll` with plain `Monoid`.
+-- -- | Folds a tree for every vertex as a root using the rerooting technique.
+-- -- | Also known as tree DP with rerooting.
+-- -- Add `Show m` for debug.
+-- foldTreeAll :: VU.Unbox m => Array Int [Int] -> (OperatorMonoid m m) -> m -> (VU.Vector m)
+-- foldTreeAll !tree (OperatorMonoid !op0 !mapp !mact) !acc0 =
+--   -- Calculate tree DP for one root vertex
+--   let !treeDp = scanTreeVG tree root0 acc0 mact
+--       !rootDp = VU.create $ do
+--         -- Calculate tree DP for every vertex as a root:
+--         !dp <- VUM.unsafeNew nVerts
+--         flip fix (-1, op0, root0) $ \runRootDp (!parent, !parentOp, !v1) -> do
+--           let !children = VU.fromList . filter (/= parent) $ tree ! v1
+--           let !opL = VU.scanl' (\op v2 -> (op `mapp`) $ treeDp VU.! v2) op0 children
+--           let !opR = VU.scanr (\v2 op -> (op `mapp`) $ treeDp VU.! v2) op0 children
+--
+--           -- save
+--           let !x1 = acc0 `mact` (parentOp `mapp` (VU.last opL))
+--           VUM.write dp v1 x1
+--           -- let !_ = dbg ("dfs", (parent, parentOp), "->", (v1, x1), children, opR)
+--
+--           flip VU.imapM_ children $ \ !i2 !v2 -> do
+--             let !lrOp = (opL VU.! i2) `mapp` (opR VU.! succ i2)
+--             -- REMARK: We assume the accumulated value has information to be used as an operator:
+--             let !v1Acc = acc0 `mact` (parentOp `mapp` lrOp)
+--             runRootDp (v1, v1Acc, v2)
+--
+--         return dp
+--    in rootDp
+--   where
+--     !nVerts = rangeSize $ (bounds tree)
+--     !root0 = 0 :: Int
 
 -- }}}
 
@@ -2131,13 +2312,215 @@ addFlowRNEdge !rn !v1 !v2 !flow = do
 
 -- }}}
 
+-- {{{ Lazy segment tree
+
+-- TODO: Do we need to duplicate `SegmentTree` and `LazySegmentTree`?
+-- TODO: Use generic vector type.. or not.
+-- TODO: We're assuming commutative operator monoid in LazySegmentTree, right?
+-- TODO: Vertex -> Node
+
+-- | Lazy segment tree.
+-- |
+-- | # Indices
+-- |
+-- | Use 1-based indices for super handy index hacks:
+-- |
+-- | ```txt
+-- |            1             |
+-- |      2           3       | height = 4
+-- |   4     5     6     7    |
+-- | 08 09 10 11 12 13 14 15  v
+-- | ^
+-- | +-- nVerts `div` 2
+-- |
+-- | 0  1  2  3  4  5  6  7   -- iLeaf is given by user and uses zero-based indices.
+-- |
+-- | - parentVertex = vertex `div` 2 = shiftR vertex 1
+-- | - leftChild = vertex * 2 = shiftR vertex 1
+-- | - rightChild = vertex * 2 + 1 = shiftR vertex 1 + 1 = (shiftR vertex 1) .|. 1
+-- |
+-- | ```
+data LazySegmentTree a op s = LazySegmentTree !(VUM.MVector s a) !(VUM.MVector s op) !Int
+
+newLazySTree ::
+  forall a op m.
+  (Monoid a, MonoidAction op a, VU.Unbox a, VU.Unbox op, PrimMonad m) =>
+  Int ->
+  m (LazySegmentTree a op (PrimState m))
+newLazySTree !n = do
+  !as <- VUM.replicate n2 mempty
+  !ops <- VUM.replicate n2 mempty
+  return $ LazySegmentTree as ops h
+  where
+    -- TODO: use bit operations
+    (!h, !n2) = until ((>= 2 * n) . snd) (bimap succ (* 2)) (0 :: Int, 1 :: Int)
+
+-- | Appends the lazy operator monoid monoids over some span of the lazy segment tree.
+-- | These values are just stored and performed over the nodes when queried.
+updateLazySTree ::
+  forall a op m.
+  (Monoid a, MonoidAction op a, Eq op, VU.Unbox a, VU.Unbox op, PrimMonad m) =>
+  (LazySegmentTree a op (PrimState m)) ->
+  Int ->
+  Int ->
+  op ->
+  m ()
+updateLazySTree stree@(LazySegmentTree !_ !ops !_) !iLLeaf !iRLeaf !op = do
+  -- 1. Propagate the parents' lazy operator monoids into the leaves:
+  _propOpMonoidsToLeaf stree iLLeaf
+  _propOpMonoidsToLeaf stree iRLeaf
+
+  -- 2. Propagate the given lazy operator monoids to the corresponding largest segments:
+  let !lVertex = iLLeaf + nVerts `div` 2
+      !rVertex = iRLeaf + nVerts `div` 2
+  glitchLoopUpdate lVertex rVertex
+
+  -- 3. Evaluate the parent vertices:
+  _evalToRoot stree iLLeaf
+  _evalToRoot stree iRLeaf
+
+  return ()
+  where
+    !nVerts = VUM.length ops
+
+    isLeftChild = not . (`testBit` 0)
+    isRightChild = (`testBit` 0)
+
+    -- Find the maximum segments for the given range and append the operator monoid.
+    -- It's much like using some glitch in a platformer game:
+    glitchLoopUpdate :: Int -> Int -> m ()
+    glitchLoopUpdate !l !r
+      | l > r = return ()
+      | otherwise = do
+          !l' <-
+            if isRightChild l
+              then do
+                VUM.modify ops (<> op) l
+                return $ succ l
+              else return l
+
+          !r' <-
+            -- NOTE: I'm using inclusive range
+            if isLeftChild r
+              then do
+                VUM.modify ops (<> op) r
+                return $ pred r
+              else return r
+
+          -- go up to the parent segment
+          glitchLoopUpdate (shiftR l' 1) (shiftR r' 1)
+
+-- TODO: I used the top-down queries for the strict segment tree. Which is preferable?
+queryLazySTree ::
+  forall a m op.
+  (Monoid a, MonoidAction op a, Eq op, VU.Unbox a, VU.Unbox op, PrimMonad m) =>
+  LazySegmentTree a op (PrimState m) ->
+  Int ->
+  Int ->
+  m a
+queryLazySTree stree@(LazySegmentTree !as !ops !_) !iLLeaf !iRLeaf = do
+  -- 1. Propagate the parents' lazy operator monoids into the leaves:
+  _propOpMonoidsToLeaf stree iLLeaf
+  _propOpMonoidsToLeaf stree iRLeaf
+
+  -- 2. Return concatanated result:
+  let !lVertex = iLLeaf + nVerts `div` 2
+      !rVertex = iRLeaf + nVerts `div` 2
+  glitchLoopQuery lVertex rVertex mempty mempty
+  where
+    !nVerts = VUM.length as
+
+    isLeftChild = not . (`testBit` 0)
+    isRightChild = (`testBit` 0)
+
+    -- Find the maximum segments for the given range and append the value.
+    -- It's much like using some glitch in a platformer game:
+    glitchLoopQuery :: Int -> Int -> a -> a -> m a
+    glitchLoopQuery !l !r !lAcc !rAcc
+      | l > r = return $ lAcc <> rAcc
+      | otherwise = do
+          (!l', !lAcc') <-
+            if isRightChild l
+              then do
+                -- Evaluate the target segmnent and append the result:
+                !la' <- mact <$> (VUM.read ops l) <*> (VUM.read as l)
+                return $ (succ l, lAcc <> la')
+              else return (l, lAcc)
+
+          (!r', !rAcc') <-
+            if isLeftChild r
+              then do
+                -- Evaluate the target segmnent and append the result:
+                !ra' <- mact <$> (VUM.read ops r) <*> (VUM.read as r)
+                return (pred r, ra' <> rAcc)
+              else return (r, rAcc)
+
+          -- go up to the parent segment
+          glitchLoopQuery (shiftR l' 1) (shiftR r' 1) lAcc' rAcc'
+
+-- | Propagates the lazy operator monoids from top to bottom where the laef vertex is contained.
+-- |
+-- | - `iLeaf`: Given with zero-based index.
+_propOpMonoidsToLeaf ::
+  (Monoid a, MonoidAction op a, Eq op, VU.Unbox a, VU.Unbox op, PrimMonad m) =>
+  LazySegmentTree a op (PrimState m) ->
+  Int ->
+  m ()
+_propOpMonoidsToLeaf (LazySegmentTree !as !ops !height) !iLeaf = do
+  let !leafVertex = iLeaf + nVerts `div` 2
+
+  -- From parent vertex to the parent of the leaf vertex:
+  forMS_ (rangeMSR 1 (pred height)) $ \iParent -> do
+    let !vertex = nthParent leafVertex iParent
+
+    -- When there's some lazy evaluation value, propagate them to their children and evaluate the vertex:
+    !op <- VUM.read ops vertex
+    when (op /= mempty) $ do
+      -- Propagate the operator monoid to the children:
+      VUM.modify ops (<> op) $ childL vertex
+      VUM.modify ops (<> op) $ childR vertex
+
+      -- Evaluate the vertex and consume the operator monoid:
+      VUM.modify as (mact op) vertex
+      VUM.write ops vertex mempty
+  where
+    !nVerts = VUM.length as
+    nthParent !leafVertex !nth = shiftR leafVertex nth
+    childL !vertex = shiftL vertex 1
+    childR !vertex = (shiftL vertex 1) .|. 1
+
+-- | Evaluates parent values on `updateSegmentTree`.
+-- TODO: move to where clause of the update function?
+_evalToRoot ::
+  (Monoid a, MonoidAction op a, Eq op, VU.Unbox a, VU.Unbox op, PrimMonad m) =>
+  LazySegmentTree a op (PrimState m) ->
+  Int ->
+  m ()
+_evalToRoot (LazySegmentTree !as !ops !height) !iLeaf = do
+  let !leafVertex = iLeaf + nVerts `div` 2
+
+  forMS_ (rangeMS 1 (pred height)) $ \iParent -> do
+    let !vertex = nthParent leafVertex iParent
+
+    -- Evaluate this parent node by appending the child nodes:
+    !aL' <- mact <$> (VUM.read ops $ childL vertex) <*> (VUM.read as $ childL vertex)
+    !aR' <- mact <$> (VUM.read ops $ childR vertex) <*> (VUM.read as $ childR vertex)
+    VUM.write as vertex $ aL' <> aR'
+  where
+    !nVerts = VUM.length as
+    nthParent !leafVertex !nth = shiftR leafVertex nth
+    childL !vertex = shiftL vertex 1
+    childR !vertex = (shiftL vertex 1) .|. 1
+
+-- }}}
+
 -- {{{ Adhoc code
 
 data MyModulus = MyModulus
 
 instance TypeInt MyModulus where
-  -- typeInt _ = 998244353
-  typeInt _ = 1_000_000_007
+  -- typeInt _ = 1_000_000_007
+  typeInt _ = 998244353
 
 type MyModInt = ModInt MyModulus
 
@@ -2149,10 +2532,36 @@ undef = -1
 
 -- }}}
 
+newtype Height = Height Int
+  deriving (Show, Eq, Ord)
+
+derivingUnbox
+  "Height"
+  [t|Height -> Int|]
+  [|\(Height h) -> h|]
+  [|\h -> Height h|]
+
+instance Semigroup Height where
+  (<>) = max
+
+instance Monoid Height where
+  mempty = Height 0
+  mconcat = maximum
+
+instance SemigroupAction Height Height where
+  sact = max
+
+instance MonoidAction Height Height
+
 main :: IO ()
 main = do
-  [n] <- ints
-  !xs <- intsVU
+  [w, n] <- ints
+  !lrs <- VU.replicateM n (both pred <$> ints2)
 
-  putStrLn "TODO"
+  !stree <- newLazySTree w
+  VU.forM_ lrs $ \(!l, !r) -> do
+    Height !h <- queryLazySTree stree l r
+    let h' = succ h
+    updateLazySTree stree l r (Height h')
+    print h'
 
