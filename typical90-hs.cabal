@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.35.0.
+-- This file has been generated from package.yaml by hpack version 0.36.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -17,7 +17,7 @@ executable a001-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -38,7 +38,6 @@ executable a001-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -49,7 +48,7 @@ executable a001-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a002-exe
   main-is: Main.hs
@@ -60,7 +59,7 @@ executable a002-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -81,7 +80,6 @@ executable a002-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -92,7 +90,7 @@ executable a002-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a003-exe
   main-is: Main.hs
@@ -103,7 +101,7 @@ executable a003-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -124,7 +122,6 @@ executable a003-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -135,7 +132,7 @@ executable a003-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a004-exe
   main-is: Main.hs
@@ -146,7 +143,7 @@ executable a004-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -167,7 +164,6 @@ executable a004-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -178,7 +174,7 @@ executable a004-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a005-exe
   main-is: Main.hs
@@ -189,7 +185,7 @@ executable a005-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -210,7 +206,6 @@ executable a005-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -221,7 +216,7 @@ executable a005-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a006-exe
   main-is: Main.hs
@@ -232,7 +227,7 @@ executable a006-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -253,7 +248,6 @@ executable a006-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -264,7 +258,7 @@ executable a006-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a007-exe
   main-is: Main.hs
@@ -275,7 +269,7 @@ executable a007-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -296,7 +290,6 @@ executable a007-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -307,7 +300,7 @@ executable a007-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a008-exe
   main-is: Main.hs
@@ -318,7 +311,7 @@ executable a008-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -339,7 +332,6 @@ executable a008-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -350,7 +342,7 @@ executable a008-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a009-exe
   main-is: Main.hs
@@ -361,7 +353,7 @@ executable a009-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -382,7 +374,6 @@ executable a009-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -393,7 +384,7 @@ executable a009-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a010-exe
   main-is: Main.hs
@@ -404,7 +395,7 @@ executable a010-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -425,7 +416,6 @@ executable a010-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -436,7 +426,7 @@ executable a010-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a011-exe
   main-is: Main.hs
@@ -447,7 +437,7 @@ executable a011-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -468,7 +458,6 @@ executable a011-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -479,7 +468,7 @@ executable a011-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a012-exe
   main-is: Main.hs
@@ -490,7 +479,7 @@ executable a012-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -511,7 +500,6 @@ executable a012-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -522,7 +510,7 @@ executable a012-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a013-exe
   main-is: Main.hs
@@ -533,7 +521,7 @@ executable a013-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -554,7 +542,6 @@ executable a013-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -565,7 +552,7 @@ executable a013-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a014-exe
   main-is: Main.hs
@@ -576,7 +563,7 @@ executable a014-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -597,7 +584,6 @@ executable a014-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -608,7 +594,7 @@ executable a014-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a015-exe
   main-is: Main.hs
@@ -619,7 +605,7 @@ executable a015-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -640,7 +626,6 @@ executable a015-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -651,7 +636,7 @@ executable a015-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a016-exe
   main-is: Main.hs
@@ -662,7 +647,7 @@ executable a016-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -683,7 +668,6 @@ executable a016-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -694,7 +678,7 @@ executable a016-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a017-exe
   main-is: Main.hs
@@ -705,7 +689,7 @@ executable a017-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -726,7 +710,6 @@ executable a017-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -737,7 +720,7 @@ executable a017-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a018-exe
   main-is: Main.hs
@@ -748,7 +731,7 @@ executable a018-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -769,7 +752,6 @@ executable a018-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -780,7 +762,7 @@ executable a018-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a019-exe
   main-is: Main.hs
@@ -791,7 +773,7 @@ executable a019-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -812,7 +794,6 @@ executable a019-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -823,7 +804,7 @@ executable a019-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a020-exe
   main-is: Main.hs
@@ -834,7 +815,7 @@ executable a020-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -855,7 +836,6 @@ executable a020-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -866,7 +846,7 @@ executable a020-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a021-exe
   main-is: Main.hs
@@ -877,7 +857,7 @@ executable a021-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -898,7 +878,6 @@ executable a021-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -909,7 +888,7 @@ executable a021-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a022-exe
   main-is: Main.hs
@@ -920,7 +899,7 @@ executable a022-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -941,7 +920,6 @@ executable a022-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -952,7 +930,7 @@ executable a022-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a023-exe
   main-is: Main.hs
@@ -963,7 +941,7 @@ executable a023-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -984,7 +962,6 @@ executable a023-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -995,7 +972,7 @@ executable a023-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a024-exe
   main-is: Main.hs
@@ -1006,7 +983,7 @@ executable a024-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1027,7 +1004,6 @@ executable a024-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1038,7 +1014,7 @@ executable a024-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a025-exe
   main-is: Main.hs
@@ -1049,7 +1025,7 @@ executable a025-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1070,7 +1046,6 @@ executable a025-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1081,7 +1056,7 @@ executable a025-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a026-exe
   main-is: Main.hs
@@ -1092,7 +1067,7 @@ executable a026-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1113,7 +1088,6 @@ executable a026-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1124,7 +1098,7 @@ executable a026-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a027-exe
   main-is: Main.hs
@@ -1135,7 +1109,7 @@ executable a027-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1156,7 +1130,6 @@ executable a027-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1167,7 +1140,7 @@ executable a027-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a028-exe
   main-is: Main.hs
@@ -1178,7 +1151,7 @@ executable a028-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1199,7 +1172,6 @@ executable a028-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1210,7 +1182,7 @@ executable a028-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a029-exe
   main-is: Main.hs
@@ -1221,7 +1193,7 @@ executable a029-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1242,7 +1214,6 @@ executable a029-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1253,7 +1224,7 @@ executable a029-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a030-exe
   main-is: Main.hs
@@ -1264,7 +1235,7 @@ executable a030-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1285,7 +1256,6 @@ executable a030-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1296,7 +1266,7 @@ executable a030-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a031-exe
   main-is: Main.hs
@@ -1307,7 +1277,7 @@ executable a031-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1328,7 +1298,6 @@ executable a031-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1339,7 +1308,7 @@ executable a031-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a032-exe
   main-is: Main.hs
@@ -1350,7 +1319,7 @@ executable a032-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1371,7 +1340,6 @@ executable a032-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1382,7 +1350,7 @@ executable a032-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a033-exe
   main-is: Main.hs
@@ -1393,7 +1361,7 @@ executable a033-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1414,7 +1382,6 @@ executable a033-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1425,7 +1392,7 @@ executable a033-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a034-exe
   main-is: Main.hs
@@ -1436,7 +1403,7 @@ executable a034-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1457,7 +1424,6 @@ executable a034-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1468,7 +1434,7 @@ executable a034-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a035-exe
   main-is: Main.hs
@@ -1479,7 +1445,7 @@ executable a035-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1500,7 +1466,6 @@ executable a035-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1511,7 +1476,7 @@ executable a035-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a036-exe
   main-is: Main.hs
@@ -1522,7 +1487,7 @@ executable a036-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1543,7 +1508,6 @@ executable a036-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1554,7 +1518,7 @@ executable a036-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a037-exe
   main-is: Main.hs
@@ -1565,7 +1529,7 @@ executable a037-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1586,7 +1550,6 @@ executable a037-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1597,7 +1560,7 @@ executable a037-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a038-exe
   main-is: Main.hs
@@ -1608,7 +1571,7 @@ executable a038-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1629,7 +1592,6 @@ executable a038-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1640,7 +1602,7 @@ executable a038-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a039-exe
   main-is: Main.hs
@@ -1651,7 +1613,7 @@ executable a039-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1672,7 +1634,6 @@ executable a039-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1683,7 +1644,7 @@ executable a039-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a040-exe
   main-is: Main.hs
@@ -1694,7 +1655,7 @@ executable a040-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1715,7 +1676,6 @@ executable a040-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1726,7 +1686,7 @@ executable a040-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a041-exe
   main-is: Main.hs
@@ -1737,7 +1697,7 @@ executable a041-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1758,7 +1718,6 @@ executable a041-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1769,7 +1728,7 @@ executable a041-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a042-exe
   main-is: Main.hs
@@ -1780,7 +1739,7 @@ executable a042-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1801,7 +1760,6 @@ executable a042-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1812,7 +1770,7 @@ executable a042-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a043-exe
   main-is: Main.hs
@@ -1823,7 +1781,7 @@ executable a043-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1844,7 +1802,6 @@ executable a043-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1855,7 +1812,7 @@ executable a043-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a044-exe
   main-is: Main.hs
@@ -1866,7 +1823,7 @@ executable a044-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1887,7 +1844,6 @@ executable a044-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1898,7 +1854,7 @@ executable a044-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a045-exe
   main-is: Main.hs
@@ -1909,7 +1865,7 @@ executable a045-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1930,7 +1886,6 @@ executable a045-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1941,7 +1896,7 @@ executable a045-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a046-exe
   main-is: Main.hs
@@ -1952,7 +1907,7 @@ executable a046-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -1973,7 +1928,6 @@ executable a046-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -1984,7 +1938,7 @@ executable a046-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a047-exe
   main-is: Main.hs
@@ -1995,7 +1949,7 @@ executable a047-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2016,7 +1970,6 @@ executable a047-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2027,7 +1980,7 @@ executable a047-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a048-exe
   main-is: Main.hs
@@ -2038,7 +1991,7 @@ executable a048-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2059,7 +2012,6 @@ executable a048-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2070,7 +2022,7 @@ executable a048-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a049-exe
   main-is: Main.hs
@@ -2081,7 +2033,7 @@ executable a049-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2102,7 +2054,6 @@ executable a049-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2113,7 +2064,7 @@ executable a049-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a050-exe
   main-is: Main.hs
@@ -2124,7 +2075,7 @@ executable a050-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2145,7 +2096,6 @@ executable a050-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2156,7 +2106,7 @@ executable a050-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a051-exe
   main-is: Main.hs
@@ -2167,7 +2117,7 @@ executable a051-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2188,7 +2138,6 @@ executable a051-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2199,7 +2148,7 @@ executable a051-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a052-exe
   main-is: Main.hs
@@ -2210,7 +2159,7 @@ executable a052-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2231,7 +2180,6 @@ executable a052-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2242,7 +2190,7 @@ executable a052-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a053-exe
   main-is: Main.hs
@@ -2253,7 +2201,7 @@ executable a053-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2274,7 +2222,6 @@ executable a053-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2285,7 +2232,7 @@ executable a053-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a054-exe
   main-is: Main.hs
@@ -2296,7 +2243,7 @@ executable a054-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2317,7 +2264,6 @@ executable a054-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2328,7 +2274,7 @@ executable a054-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a055-exe
   main-is: Main.hs
@@ -2339,7 +2285,7 @@ executable a055-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2360,7 +2306,6 @@ executable a055-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2371,7 +2316,7 @@ executable a055-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a056-exe
   main-is: Main.hs
@@ -2382,7 +2327,7 @@ executable a056-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2403,7 +2348,6 @@ executable a056-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2414,7 +2358,7 @@ executable a056-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a057-exe
   main-is: Main.hs
@@ -2425,7 +2369,7 @@ executable a057-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2446,7 +2390,6 @@ executable a057-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2457,7 +2400,7 @@ executable a057-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a058-exe
   main-is: Main.hs
@@ -2468,7 +2411,7 @@ executable a058-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2489,7 +2432,6 @@ executable a058-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2500,7 +2442,7 @@ executable a058-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a059-exe
   main-is: Main.hs
@@ -2511,7 +2453,7 @@ executable a059-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2532,7 +2474,6 @@ executable a059-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2543,7 +2484,7 @@ executable a059-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a060-exe
   main-is: Main.hs
@@ -2554,7 +2495,7 @@ executable a060-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2575,7 +2516,6 @@ executable a060-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2586,7 +2526,7 @@ executable a060-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a061-exe
   main-is: Main.hs
@@ -2597,7 +2537,7 @@ executable a061-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2618,7 +2558,6 @@ executable a061-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2629,7 +2568,7 @@ executable a061-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a062-exe
   main-is: Main.hs
@@ -2640,7 +2579,7 @@ executable a062-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2661,7 +2600,6 @@ executable a062-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2672,7 +2610,7 @@ executable a062-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a063-exe
   main-is: Main.hs
@@ -2683,7 +2621,7 @@ executable a063-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2704,7 +2642,6 @@ executable a063-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2715,7 +2652,7 @@ executable a063-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a064-exe
   main-is: Main.hs
@@ -2726,7 +2663,7 @@ executable a064-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2747,7 +2684,6 @@ executable a064-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2758,7 +2694,7 @@ executable a064-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a065-exe
   main-is: Main.hs
@@ -2769,7 +2705,7 @@ executable a065-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2790,7 +2726,6 @@ executable a065-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2801,7 +2736,7 @@ executable a065-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a066-exe
   main-is: Main.hs
@@ -2812,7 +2747,7 @@ executable a066-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2833,7 +2768,6 @@ executable a066-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2844,7 +2778,7 @@ executable a066-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a067-exe
   main-is: Main.hs
@@ -2855,7 +2789,7 @@ executable a067-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2876,7 +2810,6 @@ executable a067-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2887,7 +2820,7 @@ executable a067-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a068-exe
   main-is: Main.hs
@@ -2898,7 +2831,7 @@ executable a068-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2919,7 +2852,6 @@ executable a068-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2930,7 +2862,7 @@ executable a068-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a069-exe
   main-is: Main.hs
@@ -2941,7 +2873,7 @@ executable a069-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -2962,7 +2894,6 @@ executable a069-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -2973,7 +2904,7 @@ executable a069-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a070-exe
   main-is: Main.hs
@@ -2984,7 +2915,7 @@ executable a070-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3005,7 +2936,6 @@ executable a070-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3016,7 +2946,7 @@ executable a070-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a071-exe
   main-is: Main.hs
@@ -3027,7 +2957,7 @@ executable a071-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3048,7 +2978,6 @@ executable a071-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3059,7 +2988,7 @@ executable a071-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a072-exe
   main-is: Main.hs
@@ -3070,7 +2999,7 @@ executable a072-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3091,7 +3020,6 @@ executable a072-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3102,7 +3030,7 @@ executable a072-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a073-exe
   main-is: Main.hs
@@ -3113,7 +3041,7 @@ executable a073-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3134,7 +3062,6 @@ executable a073-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3145,7 +3072,7 @@ executable a073-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a074-exe
   main-is: Main.hs
@@ -3156,7 +3083,7 @@ executable a074-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3177,7 +3104,6 @@ executable a074-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3188,7 +3114,7 @@ executable a074-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a075-exe
   main-is: Main.hs
@@ -3199,7 +3125,7 @@ executable a075-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3220,7 +3146,6 @@ executable a075-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3231,7 +3156,7 @@ executable a075-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a076-exe
   main-is: Main.hs
@@ -3242,7 +3167,7 @@ executable a076-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3263,7 +3188,6 @@ executable a076-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3274,7 +3198,7 @@ executable a076-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a077-exe
   main-is: Main.hs
@@ -3285,7 +3209,7 @@ executable a077-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3306,7 +3230,6 @@ executable a077-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3317,7 +3240,7 @@ executable a077-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a078-exe
   main-is: Main.hs
@@ -3328,7 +3251,7 @@ executable a078-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3349,7 +3272,6 @@ executable a078-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3360,7 +3282,7 @@ executable a078-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a079-exe
   main-is: Main.hs
@@ -3371,7 +3293,7 @@ executable a079-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3392,7 +3314,6 @@ executable a079-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3403,7 +3324,7 @@ executable a079-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a080-exe
   main-is: Main.hs
@@ -3414,7 +3335,7 @@ executable a080-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3435,7 +3356,6 @@ executable a080-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3446,7 +3366,7 @@ executable a080-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a081-exe
   main-is: Main.hs
@@ -3457,7 +3377,7 @@ executable a081-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3478,7 +3398,6 @@ executable a081-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3489,7 +3408,7 @@ executable a081-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a082-exe
   main-is: Main.hs
@@ -3500,7 +3419,7 @@ executable a082-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3521,7 +3440,6 @@ executable a082-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3532,7 +3450,7 @@ executable a082-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a083-exe
   main-is: Main.hs
@@ -3543,7 +3461,7 @@ executable a083-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3564,7 +3482,6 @@ executable a083-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3575,7 +3492,7 @@ executable a083-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a084-exe
   main-is: Main.hs
@@ -3586,7 +3503,7 @@ executable a084-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3607,7 +3524,6 @@ executable a084-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3618,7 +3534,7 @@ executable a084-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a085-exe
   main-is: Main.hs
@@ -3629,7 +3545,7 @@ executable a085-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3650,7 +3566,6 @@ executable a085-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3661,7 +3576,7 @@ executable a085-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a086-exe
   main-is: Main.hs
@@ -3672,7 +3587,7 @@ executable a086-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3693,7 +3608,6 @@ executable a086-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3704,7 +3618,7 @@ executable a086-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a087-exe
   main-is: Main.hs
@@ -3715,7 +3629,7 @@ executable a087-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3736,7 +3650,6 @@ executable a087-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3747,7 +3660,7 @@ executable a087-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a088-exe
   main-is: Main.hs
@@ -3758,7 +3671,7 @@ executable a088-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3779,7 +3692,6 @@ executable a088-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3790,7 +3702,7 @@ executable a088-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a089-exe
   main-is: Main.hs
@@ -3801,7 +3713,7 @@ executable a089-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3822,7 +3734,6 @@ executable a089-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3833,7 +3744,7 @@ executable a089-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable a090-exe
   main-is: Main.hs
@@ -3844,7 +3755,7 @@ executable a090-exe
       QuickCheck
     , array
     , attoparsec
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , deepseq
@@ -3865,7 +3776,6 @@ executable a090-exe
     , psqueues
     , random
     , reflection
-    , repa
     , template-haskell
     , text
     , tf-random
@@ -3876,4 +3786,5 @@ executable a090-exe
     , vector
     , vector-algorithms
     , vector-th-unbox
-  default-language: Haskell2010
+  default-language: GHC2021
+

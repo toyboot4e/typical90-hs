@@ -1,5 +1,5 @@
 dependencies:
-   - base >= 4.7 && < 5
+   - base
 
    - QuickCheck
    - array
@@ -35,6 +35,8 @@ dependencies:
    - vector-algorithms
    - vector-th-unbox
 
+language: GHC2021
+
 # DRY for package.yaml executables:
 # <https://www.reddit.com/r/haskell/comments/haeqin/dry_for_packageyaml_executables/>
 _exe-defs: &exe-defaults
@@ -47,454 +49,455 @@ _exe-defs: &exe-defaults
     - -Wall # all warnings
   other-modules: []
 
+# REMARK: See `README` for the langauge server support.
 executables:
   a001-exe:
     <<: *exe-defaults
-    source-dirs: a001
-    main: Main.hs
+    source-dirs: "a001"
+    main:                Main.hs
 
   a002-exe:
     <<: *exe-defaults
-    source-dirs: a002
-    main: Main.hs
+    source-dirs: "a002"
+    main:                Main.hs
 
   a003-exe:
     <<: *exe-defaults
-    source-dirs: a003
-    main: Main.hs
+    source-dirs: "a003"
+    main:                Main.hs
 
   a004-exe:
     <<: *exe-defaults
-    source-dirs: a004
-    main: Main.hs
+    source-dirs: "a004"
+    main:                Main.hs
 
   a005-exe:
     <<: *exe-defaults
-    source-dirs: a005
-    main: Main.hs
+    source-dirs: "a005"
+    main:                Main.hs
 
   a006-exe:
     <<: *exe-defaults
-    source-dirs: a006
-    main: Main.hs
+    source-dirs: "a006"
+    main:                Main.hs
 
   a007-exe:
     <<: *exe-defaults
-    source-dirs: a007
-    main: Main.hs
+    source-dirs: "a007"
+    main:                Main.hs
 
   a008-exe:
     <<: *exe-defaults
-    source-dirs: a008
-    main: Main.hs
+    source-dirs: "a008"
+    main:                Main.hs
 
   a009-exe:
     <<: *exe-defaults
-    source-dirs: a009
-    main: Main.hs
+    source-dirs: "a009"
+    main:                Main.hs
 
   a010-exe:
     <<: *exe-defaults
-    source-dirs: a010
-    main: Main.hs
+    source-dirs: "a010"
+    main:                Main.hs
 
   a011-exe:
     <<: *exe-defaults
-    source-dirs: a011
-    main: Main.hs
+    source-dirs: "a011"
+    main:                Main.hs
 
   a012-exe:
     <<: *exe-defaults
-    source-dirs: a012
-    main: Main.hs
+    source-dirs: "a012"
+    main:                Main.hs
 
   a013-exe:
     <<: *exe-defaults
-    source-dirs: a013
-    main: Main.hs
+    source-dirs: "a013"
+    main:                Main.hs
 
   a014-exe:
     <<: *exe-defaults
-    source-dirs: a014
-    main: Main.hs
+    source-dirs: "a014"
+    main:                Main.hs
 
   a015-exe:
     <<: *exe-defaults
-    source-dirs: a015
-    main: Main.hs
+    source-dirs: "a015"
+    main:                Main.hs
 
   a016-exe:
     <<: *exe-defaults
-    source-dirs: a016
-    main: Main.hs
+    source-dirs: "a016"
+    main:                Main.hs
 
   a017-exe:
     <<: *exe-defaults
-    source-dirs: a017
-    main: Main.hs
+    source-dirs: "a017"
+    main:                Main.hs
 
   a018-exe:
     <<: *exe-defaults
-    source-dirs: a018
-    main: Main.hs
+    source-dirs: "a018"
+    main:                Main.hs
 
   a019-exe:
     <<: *exe-defaults
-    source-dirs: a019
-    main: Main.hs
+    source-dirs: "a019"
+    main:                Main.hs
 
   a020-exe:
     <<: *exe-defaults
-    source-dirs: a020
-    main: Main.hs
+    source-dirs: "a020"
+    main:                Main.hs
 
   a021-exe:
     <<: *exe-defaults
-    source-dirs: a021
-    main: Main.hs
+    source-dirs: "a021"
+    main:                Main.hs
 
   a022-exe:
     <<: *exe-defaults
-    source-dirs: a022
-    main: Main.hs
+    source-dirs: "a022"
+    main:                Main.hs
 
   a023-exe:
     <<: *exe-defaults
-    source-dirs: a023
-    main: Main.hs
+    source-dirs: "a023"
+    main:                Main.hs
 
   a024-exe:
     <<: *exe-defaults
-    source-dirs: a024
-    main: Main.hs
+    source-dirs: "a024"
+    main:                Main.hs
 
   a025-exe:
     <<: *exe-defaults
-    source-dirs: a025
-    main: Main.hs
+    source-dirs: "a025"
+    main:                Main.hs
 
   a026-exe:
     <<: *exe-defaults
-    source-dirs: a026
-    main: Main.hs
+    source-dirs: "a026"
+    main:                Main.hs
 
   a027-exe:
     <<: *exe-defaults
-    source-dirs: a027
-    main: Main.hs
+    source-dirs: "a027"
+    main:                Main.hs
 
   a028-exe:
     <<: *exe-defaults
-    source-dirs: a028
-    main: Main.hs
+    source-dirs: "a028"
+    main:                Main.hs
 
   a029-exe:
     <<: *exe-defaults
-    source-dirs: a029
-    main: Main.hs
+    source-dirs: "a029"
+    main:                Main.hs
 
   a030-exe:
     <<: *exe-defaults
-    source-dirs: a030
-    main: Main.hs
+    source-dirs: "a030"
+    main:                Main.hs
 
   a031-exe:
     <<: *exe-defaults
-    source-dirs: a031
-    main: Main.hs
+    source-dirs: "a031"
+    main:                Main.hs
 
   a032-exe:
     <<: *exe-defaults
-    source-dirs: a032
-    main: Main.hs
+    source-dirs: "a032"
+    main:                Main.hs
 
   a033-exe:
     <<: *exe-defaults
-    source-dirs: a033
-    main: Main.hs
+    source-dirs: "a033"
+    main:                Main.hs
 
   a034-exe:
     <<: *exe-defaults
-    source-dirs: a034
-    main: Main.hs
+    source-dirs: "a034"
+    main:                Main.hs
 
   a035-exe:
     <<: *exe-defaults
-    source-dirs: a035
-    main: Main.hs
+    source-dirs: "a035"
+    main:                Main.hs
 
   a036-exe:
     <<: *exe-defaults
-    source-dirs: a036
-    main: Main.hs
+    source-dirs: "a036"
+    main:                Main.hs
 
   a037-exe:
     <<: *exe-defaults
-    source-dirs: a037
-    main: Main.hs
+    source-dirs: "a037"
+    main:                Main.hs
 
   a038-exe:
     <<: *exe-defaults
-    source-dirs: a038
-    main: Main.hs
+    source-dirs: "a038"
+    main:                Main.hs
 
   a039-exe:
     <<: *exe-defaults
-    source-dirs: a039
-    main: Main.hs
+    source-dirs: "a039"
+    main:                Main.hs
 
   a040-exe:
     <<: *exe-defaults
-    source-dirs: a040
-    main: Main.hs
+    source-dirs: "a040"
+    main:                Main.hs
 
   a041-exe:
     <<: *exe-defaults
-    source-dirs: a041
-    main: Main.hs
+    source-dirs: "a041"
+    main:                Main.hs
 
   a042-exe:
     <<: *exe-defaults
-    source-dirs: a042
-    main: Main.hs
+    source-dirs: "a042"
+    main:                Main.hs
 
   a043-exe:
     <<: *exe-defaults
-    source-dirs: a043
-    main: Main.hs
+    source-dirs: "a043"
+    main:                Main.hs
 
   a044-exe:
     <<: *exe-defaults
-    source-dirs: a044
-    main: Main.hs
+    source-dirs: "a044"
+    main:                Main.hs
 
   a045-exe:
     <<: *exe-defaults
-    source-dirs: a045
-    main: Main.hs
+    source-dirs: "a045"
+    main:                Main.hs
 
   a046-exe:
     <<: *exe-defaults
-    source-dirs: a046
-    main: Main.hs
+    source-dirs: "a046"
+    main:                Main.hs
 
   a047-exe:
     <<: *exe-defaults
-    source-dirs: a047
-    main: Main.hs
+    source-dirs: "a047"
+    main:                Main.hs
 
   a048-exe:
     <<: *exe-defaults
-    source-dirs: a048
-    main: Main.hs
+    source-dirs: "a048"
+    main:                Main.hs
 
   a049-exe:
     <<: *exe-defaults
-    source-dirs: a049
-    main: Main.hs
+    source-dirs: "a049"
+    main:                Main.hs
 
   a050-exe:
     <<: *exe-defaults
-    source-dirs: a050
-    main: Main.hs
+    source-dirs: "a050"
+    main:                Main.hs
 
   a051-exe:
     <<: *exe-defaults
-    source-dirs: a051
-    main: Main.hs
+    source-dirs: "a051"
+    main:                Main.hs
 
   a052-exe:
     <<: *exe-defaults
-    source-dirs: a052
-    main: Main.hs
+    source-dirs: "a052"
+    main:                Main.hs
 
   a053-exe:
     <<: *exe-defaults
-    source-dirs: a053
-    main: Main.hs
+    source-dirs: "a053"
+    main:                Main.hs
 
   a054-exe:
     <<: *exe-defaults
-    source-dirs: a054
-    main: Main.hs
+    source-dirs: "a054"
+    main:                Main.hs
 
   a055-exe:
     <<: *exe-defaults
-    source-dirs: a055
-    main: Main.hs
+    source-dirs: "a055"
+    main:                Main.hs
 
   a056-exe:
     <<: *exe-defaults
-    source-dirs: a056
-    main: Main.hs
+    source-dirs: "a056"
+    main:                Main.hs
 
   a057-exe:
     <<: *exe-defaults
-    source-dirs: a057
-    main: Main.hs
+    source-dirs: "a057"
+    main:                Main.hs
 
   a058-exe:
     <<: *exe-defaults
-    source-dirs: a058
-    main: Main.hs
+    source-dirs: "a058"
+    main:                Main.hs
 
   a059-exe:
     <<: *exe-defaults
-    source-dirs: a059
-    main: Main.hs
+    source-dirs: "a059"
+    main:                Main.hs
 
   a060-exe:
     <<: *exe-defaults
-    source-dirs: a060
-    main: Main.hs
+    source-dirs: "a060"
+    main:                Main.hs
 
   a061-exe:
     <<: *exe-defaults
-    source-dirs: a061
-    main: Main.hs
+    source-dirs: "a061"
+    main:                Main.hs
 
   a062-exe:
     <<: *exe-defaults
-    source-dirs: a062
-    main: Main.hs
+    source-dirs: "a062"
+    main:                Main.hs
 
   a063-exe:
     <<: *exe-defaults
-    source-dirs: a063
-    main: Main.hs
+    source-dirs: "a063"
+    main:                Main.hs
 
   a064-exe:
     <<: *exe-defaults
-    source-dirs: a064
-    main: Main.hs
+    source-dirs: "a064"
+    main:                Main.hs
 
   a065-exe:
     <<: *exe-defaults
-    source-dirs: a065
-    main: Main.hs
+    source-dirs: "a065"
+    main:                Main.hs
 
   a066-exe:
     <<: *exe-defaults
-    source-dirs: a066
-    main: Main.hs
+    source-dirs: "a066"
+    main:                Main.hs
 
   a067-exe:
     <<: *exe-defaults
-    source-dirs: a067
-    main: Main.hs
+    source-dirs: "a067"
+    main:                Main.hs
 
   a068-exe:
     <<: *exe-defaults
-    source-dirs: a068
-    main: Main.hs
+    source-dirs: "a068"
+    main:                Main.hs
 
   a069-exe:
     <<: *exe-defaults
-    source-dirs: a069
-    main: Main.hs
+    source-dirs: "a069"
+    main:                Main.hs
 
   a070-exe:
     <<: *exe-defaults
-    source-dirs: a070
-    main: Main.hs
+    source-dirs: "a070"
+    main:                Main.hs
 
   a071-exe:
     <<: *exe-defaults
-    source-dirs: a071
-    main: Main.hs
+    source-dirs: "a071"
+    main:                Main.hs
 
   a072-exe:
     <<: *exe-defaults
-    source-dirs: a072
-    main: Main.hs
+    source-dirs: "a072"
+    main:                Main.hs
 
   a073-exe:
     <<: *exe-defaults
-    source-dirs: a073
-    main: Main.hs
+    source-dirs: "a073"
+    main:                Main.hs
 
   a074-exe:
     <<: *exe-defaults
-    source-dirs: a074
-    main: Main.hs
+    source-dirs: "a074"
+    main:                Main.hs
 
   a075-exe:
     <<: *exe-defaults
-    source-dirs: a075
-    main: Main.hs
+    source-dirs: "a075"
+    main:                Main.hs
 
   a076-exe:
     <<: *exe-defaults
-    source-dirs: a076
-    main: Main.hs
+    source-dirs: "a076"
+    main:                Main.hs
 
   a077-exe:
     <<: *exe-defaults
-    source-dirs: a077
-    main: Main.hs
+    source-dirs: "a077"
+    main:                Main.hs
 
   a078-exe:
     <<: *exe-defaults
-    source-dirs: a078
-    main: Main.hs
+    source-dirs: "a078"
+    main:                Main.hs
 
   a079-exe:
     <<: *exe-defaults
-    source-dirs: a079
-    main: Main.hs
+    source-dirs: "a079"
+    main:                Main.hs
 
   a080-exe:
     <<: *exe-defaults
-    source-dirs: a080
-    main: Main.hs
+    source-dirs: "a080"
+    main:                Main.hs
 
   a081-exe:
     <<: *exe-defaults
-    source-dirs: a081
-    main: Main.hs
+    source-dirs: "a081"
+    main:                Main.hs
 
   a082-exe:
     <<: *exe-defaults
-    source-dirs: a082
-    main: Main.hs
+    source-dirs: "a082"
+    main:                Main.hs
 
   a083-exe:
     <<: *exe-defaults
-    source-dirs: a083
-    main: Main.hs
+    source-dirs: "a083"
+    main:                Main.hs
 
   a084-exe:
     <<: *exe-defaults
-    source-dirs: a084
-    main: Main.hs
+    source-dirs: "a084"
+    main:                Main.hs
 
   a085-exe:
     <<: *exe-defaults
-    source-dirs: a085
-    main: Main.hs
+    source-dirs: "a085"
+    main:                Main.hs
 
   a086-exe:
     <<: *exe-defaults
-    source-dirs: a086
-    main: Main.hs
+    source-dirs: "a086"
+    main:                Main.hs
 
   a087-exe:
     <<: *exe-defaults
-    source-dirs: a087
-    main: Main.hs
+    source-dirs: "a087"
+    main:                Main.hs
 
   a088-exe:
     <<: *exe-defaults
-    source-dirs: a088
-    main: Main.hs
+    source-dirs: "a088"
+    main:                Main.hs
 
   a089-exe:
     <<: *exe-defaults
-    source-dirs: a089
-    main: Main.hs
+    source-dirs: "a089"
+    main:                Main.hs
 
   a090-exe:
     <<: *exe-defaults
-    source-dirs: a090
-    main: Main.hs
+    source-dirs: "a090"
+    main:                Main.hs
 
